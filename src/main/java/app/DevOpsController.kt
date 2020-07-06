@@ -1,36 +1,21 @@
 package app
 
-import exception.EntityNotFoundException
-import ext.toMap
-import model.Line
-import model.Response
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
+import com.linecorp.bot.model.event.MessageEvent
+import com.linecorp.bot.model.event.message.TextMessageContent
+import com.linecorp.bot.spring.boot.annotation.EventMapping
+import com.linecorp.bot.spring.boot.annotation.LineMessageHandler
+import model.LineBotService
 import org.springframework.web.bind.annotation.RestController
 
 
 @RestController
-@RequestMapping("api/v1")
+@LineMessageHandler
 class DevOpsController {
+    private lateinit var mLineBotService: LineBotService
 
-    @GetMapping("*")
-    @Throws(EntityNotFoundException::class)
-    fun apiIndex(): ResponseEntity<Response<Any>> {
-        return Response.error(
-                status = HttpStatus.BAD_REQUEST,
-                throwable = EntityNotFoundException("Cutibot not support this url.")
-        )
+    @EventMapping
+    fun handleTextMessageEvent(event: MessageEvent<TextMessageContent>) {
+        mLineBotService.handleTextMessage(event)
     }
 
-    @GetMapping("/notify")
-    @Throws(EntityNotFoundException::class)
-    fun notify(@RequestParam(value = "name") name: String,
-               @RequestParam(value = "age") age: Int): ResponseEntity<*> {
-
-        val line = Line(age, name)
-        return Response.ok(line)
-    }
 }
