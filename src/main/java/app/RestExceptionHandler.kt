@@ -1,7 +1,7 @@
 package app
 
 import exception.EntityNotFoundException
-import model.Response
+import datas.model.Response
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
 import org.springframework.http.HttpHeaders
