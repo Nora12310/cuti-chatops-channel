@@ -10,6 +10,7 @@ import com.linecorp.bot.model.message.TextMessage
 import common.Resource
 import common.Resource.ADD_URL_MESSAGE
 import common.Resource.INVALID_URL_MESSAGE
+import common.Resource.REMOVE_URL_MESSAGE
 import datas.entity.ProjectEntity
 import datas.model.Project
 import ext.toJson
@@ -104,6 +105,7 @@ class LineEventServiceImpl(
         val url = command ?: return reply(event.replyToken, TextMessage(INVALID_URL_MESSAGE))
         if (isValidURL(url)) {
             GlobalScope.launch { repository.unregister(url) }
+            reply(event.replyToken, TextMessage(REMOVE_URL_MESSAGE))
         } else {
             reply(event.replyToken, TextMessage(INVALID_URL_MESSAGE))
         }
@@ -121,7 +123,7 @@ class LineEventServiceImpl(
         val project: ProjectEntity? = repository.findProjectByKey(command)
         val message = when {
             project != null -> {
-                //we will start call ci/cd from here to build apk file.
+                // we will start call ci/cd from here to build apk file.
                 TextMessage(Resource.BUILD_MESSAGE)
             }
             else -> TextMessage(Resource.BUILD_MESSAGE)
