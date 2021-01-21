@@ -13,10 +13,10 @@ class BuildMessage(
     override fun toString(): String {
         return "New version is available for download: \n" +
                 downloadUrl +
-                "\n\n*Build Date:* " + buildDate.toDate().formatTo("dd-MMM-yyyy") +
-                "\n*Platform:* Android" +
-                "\n*Version:* $tags" +
-                "\n\n*Changes:*\n" + logs +
-                "\n\n*Note:* Please delete local data before installing the new version. Developers can change fields during development making them incompatible with the old version."
+                "\n\nBuild Date: " + buildDate.toDate().formatTo("dd-MMM-yyyy") +
+                "\nPlatform: Android" +
+                "\nBranch: $tags" +
+                "\n\nChanges:\n" + logs +
+                "\n\nNote: Please delete local data before installing the new version. Developers can change fields during development making them incompatible with the old version."
     }
 }

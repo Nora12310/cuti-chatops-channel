@@ -13,9 +13,8 @@ fun PipelineEvent.buildDownloadLink(): String {
     val hostname = url.host
     val protocol = url.protocol
 
-    val build = this.findBuildByStage("build")
-    val username = build?.user?.username
+    val build = this.findBuildByStage("release")
+    val pathWithNamespace = project.pathWithNamespace
     val runnerId = build?.id
-    val projectName = project.name
-    return "$protocol://$hostname/$username/$projectName/-/jobs/$runnerId/artifacts/download"
+    return "$protocol://$hostname/$pathWithNamespace/-/jobs/$runnerId/artifacts/download"
 }
