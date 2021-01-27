@@ -1,8 +1,9 @@
 import com.fasterxml.jackson.annotation.JsonProperty
 
+/// https://github.com/google/gson/issues/1005
 data class Build(
         @JsonProperty("artifacts_file")
-        val artifactsFile: ArtifactsFile = ArtifactsFile(),
+        val artifactsFile: ArtifactsFile? = ArtifactsFile(),
         @JsonProperty("created_at")
         val createdAt: String? = "",
         @JsonProperty("finished_at")
@@ -14,7 +15,7 @@ data class Build(
         @JsonProperty("name")
         val name: String? = "",
         @JsonProperty("runner")
-        val runner: Runner = Runner(),
+        val runner: Runner? = Runner(),
         @JsonProperty("stage")
         val stage: String? = "",
         @JsonProperty("started_at")

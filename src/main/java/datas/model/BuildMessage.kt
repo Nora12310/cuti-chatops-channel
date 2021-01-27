@@ -20,3 +20,18 @@ class BuildMessage(
                 "\n\nNote: Please delete local data before installing the new version. Developers can change fields during development making them incompatible with the old version."
     }
 }
+
+data class PullRequestMessage(
+        private val username: String,
+        private val url: String,
+        private val branch: String,
+        private val targetBranch: String,
+        private val message: String
+) {
+
+    override fun toString(): String {
+        return "@$username make a Pull Request to merge $branch into $targetBranch with changes:" +
+                "\n$message" +
+                "\n\nMerge request url:$url"
+    }
+}
