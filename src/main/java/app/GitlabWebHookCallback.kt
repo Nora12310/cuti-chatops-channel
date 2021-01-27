@@ -71,7 +71,10 @@ class GitlabWebHookCallback(
                 val message = PullRequestMessage(
                         username = event.objectAttributes.lastCommit.author.name ?: "",
                         url = event.objectAttributes.url,
+                        mergeStatus = event.objectAttributes.mergeStatus,
+                        mergeError = event.objectAttributes.mergeError,
                         branch = event.objectAttributes.sourceBranch,
+                        state = event.objectAttributes.state,
                         targetBranch = event.objectAttributes.targetBranch,
                         message = event.objectAttributes.lastCommit.message
                 )

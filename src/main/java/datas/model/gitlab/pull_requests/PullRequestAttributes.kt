@@ -3,6 +3,7 @@ package datas.model.gitlab.pull_requests
 import com.fasterxml.jackson.annotation.JsonProperty
 
 data class PullRequestAttributes(
+        @JsonProperty("merge_error") val mergeError: String? = "",
         @JsonProperty("merge_status") val mergeStatus: String = "",
         @JsonProperty("url") val url: String = "",
         @JsonProperty("source_branch") val sourceBranch: String = "",
