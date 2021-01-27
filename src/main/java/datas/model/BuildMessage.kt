@@ -30,8 +30,8 @@ data class PullRequestMessage(
 ) {
 
     override fun toString(): String {
-        return "@$username make a Pull Request to merge $branch into $targetBranch with changes:" +
-                "\n$message" +
-                "\n\nMerge request url:$url"
+        return "@$username make a pull request to merge `$branch` into `$targetBranch` with changes:" +
+                "\n +$message" +
+                "\n\nMerge request url: $url"
     }
 }

@@ -45,7 +45,8 @@ class GitlabWebHookCallback(
                 )
                 if (status == "success") {
                     service.notify(roomId, TextMessage(message.toString()))
-                }
+                } else service.notify(roomId, TextMessage("Pipeline progress failed!"))
+                return Response.ok(this)
             }
         }
         return Response.ok<Any>()
@@ -62,14 +63,16 @@ class GitlabWebHookCallback(
             val project = repository.findProjectByUrl(url)
             project?.apply {
                 val message = PullRequestMessage(
-                        username = event.lastCommit.author.name ?: "",
-                        url = event.url,
-                        branch = event.sourceBranch,
-                        targetBranch = event.targetBranch,
-                        message = event.lastCommit.message
+                        username = event.objectAttributes.lastCommit.author.name ?: "",
+                        url = event.objectAttributes.url,
+                        branch = event.objectAttributes.sourceBranch,
+                        targetBranch = event.objectAttributes.targetBranch,
+                        message = event.objectAttributes.lastCommit.message
                 )
                 service.notify(roomId, TextMessage(message.toString()))
+                return Response.ok(this)
             }
+            return Response.ok(event)
         }
         return Response.ok<Any>()
     }
