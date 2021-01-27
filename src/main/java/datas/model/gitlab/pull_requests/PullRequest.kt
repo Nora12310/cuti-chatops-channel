@@ -1,6 +1,5 @@
 package datas.model.gitlab.pull_requests
 
-import ObjectAttributes
 import Project
 import User
 import com.fasterxml.jackson.annotation.JsonProperty

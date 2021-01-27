@@ -43,9 +43,15 @@ class GitlabWebHookCallback(
                         tags = event.objectAttributes.ref ?: "",
                         downloadUrl = event.buildDownloadLink()
                 )
-                if (status == "success") {
-                    service.notify(roomId, TextMessage(message.toString()))
-                } else service.notify(roomId, TextMessage("Pipeline progress failed!"))
+
+                val messageString = when (status) {
+                    "success" -> message.toString()
+                    "running" -> "Your pipeline process has begun. I will notify you when done."
+                    "failed" -> "Sorry! Your pipeline process failed!"
+                    "pending" -> "Your pipeline process added into Pending queue. Please wait..."
+                    else -> ""
+                }
+                if (messageString.isNotEmpty()) service.notify(roomId, TextMessage(messageString))
                 return Response.ok(this)
             }
         }
