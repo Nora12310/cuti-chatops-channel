@@ -78,7 +78,10 @@ class GitlabWebHookCallback(
                         targetBranch = event.objectAttributes.targetBranch,
                         message = event.objectAttributes.lastCommit.message
                 )
-                service.notify(roomId, TextMessage(message.toString()))
+                val messageString = message.toString()
+                if (messageString.isNotEmpty()) {
+                    service.notify(roomId, TextMessage(message.toString()))
+                }
                 return Response.ok(this)
             }
             return Response.ok(event)

@@ -33,11 +33,19 @@ data class PullRequestMessage(
 ) {
 
     override fun toString(): String {
-        return "@$username make a pull request to merge `$branch` into `$targetBranch` with changes:" +
+        if (state == "merged") {
+            return ""
+        }
+        var message = "@$username ${if (state == "opened") "make" else "edit"} a pull request to merge `$branch` into `$targetBranch` with changes:" +
                 "\n + $message" +
                 "\n `Merge status:` $mergeStatus" +
-                "\n `State:` $state" +
-                "\n `Merge Error:` $mergeError" +
-                "\n\nMerge request url: $url"
+                "\n `State:` $state"
+
+        if (mergeError != null) {
+            message += "\n `Merge Error:` $mergeError"
+        }
+
+        message += "\n\nMerge request url: $url"
+        return message
     }
 }
