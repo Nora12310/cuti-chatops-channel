@@ -58,8 +58,8 @@ class GitlabWebHookCallback(
         return Response.ok<Any>()
     }
 
-    @PostMapping("/gitlab/push_event/callback")
-    fun pushEvent(
+    @PostMapping("/gitlab/merge_request/callback")
+    fun mergeRequest(
             @RequestHeader(value = "X-Gitlab-Event") type: String,
             @RequestBody event: PullRequest
     ): ResponseEntity<*> {

@@ -92,7 +92,7 @@ class LineEventServiceImpl(
                         roomId = event.source.senderId,
                         gitUrl = url,
                         name = "",
-                        key = ""
+                        key = event.source.senderId
                 ))
                 reply(event.replyToken, TextMessage(ADD_URL_MESSAGE))
             }
